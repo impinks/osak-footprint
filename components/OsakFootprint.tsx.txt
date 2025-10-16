@@ -1,0 +1,89 @@
+import React, { useEffect, useMemo, useState } from "react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Label } from "@/components/ui/label";
+import { Slider } from "@/components/ui/slider";
+import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from "recharts";
+import { motion } from "framer-motion";
+
+
+// ===== Demo constants (간이 추정치 / 공식보고용 아님) =====
+const BASE = {
+homePerPerson: 1.4, // 주거/에너지 (tCO2e/인·년)
+transportPerPerson: 2.1, // 교통
+foodPerPerson: 1.7, // 식품
+otherPerPerson: 0.9, // 기타소비
+};
+
+
+const FACTORS = {
+transport: { car: 1.4, mixed: 1.0, transit: 0.75, active: 0.4 },
+diet: { meat: 1.3, mixed: 1.0, veg: 0.7 },
+energy: { high: 0.8, mid: 1.0, low: 1.2 },
+lifestyle: { frugal: 0.9, mid: 1.0, spend: 1.1 },
+flights: { none: 0.0, few: 0.3, some: 0.9, many: 2.0 },
+// 생활 실천 (복수선택) — 곱연산, 하한 0.6
+practice: {
+ecoBag: 0.95,
+tumbler: 0.95,
+reduceDisposable: 0.9,
+recycle: 0.9,
+unplug: 0.9,
+tempControl: 0.92, // 냉난방 적정 온도
+},
+} as const;
+
+
+type PracticeKey = keyof typeof FACTORS.practice;
+
+
+const COLORS = ["#2E7D5B", "#6BBE77", "#F2B705", "#2BA7B1", "#E85D4A"];
+const CATEGORY_COLORS: Record<string, string> = {
+"주거/에너지": COLORS[0],
+"교통": COLORS[1],
+"식품": COLORS[2],
+"기타소비": COLORS[3],
+"항공": COLORS[4],
+};
+const AVOIDED_PER_KM_CAR_KG = 0.19; // 차량 평균 0.19 kgCO2/km 가정
+
+
+function format(num: number) {
+return Number(num).toLocaleString(undefined, { maximumFractionDigits: 2 });
+}
+
+
+function calcSubtotal(
+people: number,
+transport: keyof typeof FACTORS.transport,
+diet: keyof typeof FACTORS.diet,
+energy: keyof typeof FACTORS.energy,
+lifestyle: keyof typeof FACTORS.lifestyle,
+flights: keyof typeof FACTORS.flights,
+householdScale: number,
+) {
+const home = BASE.homePerPerson * people * householdScale * FACTORS.energy[energy];
+const transportVal = BASE.transportPerPerson * people * FACTORS.transport[transport];
+const food = BASE.foodPerPerson * people * FACTORS.diet[diet];
+const other = BASE.otherPerPerson * people * FACTORS.lifestyle[lifestyle];
+const flightAdd = FACTORS.flights[flights];
+return { home, transportVal, food, other, flightAdd, subtotal: home + transportVal + food + other + flightAdd };
+}
+
+
+function calcPracticeMultiplier(practice: PracticeKey[]) {
+const mul = practice.reduce((acc, k) => acc * FACTORS.practice[k], 1);
+return Math.max(0.6, mul);
+}
+
+
+export default function OsakDulegilSurveyAndFootprint() {
+// ===== 설문 =====
+const [step, setStep] = useState(1);
+const [survey, setSurvey] = useState({ know: "없다", walked: "없다", reasons: [] as string[], satisfaction: [] as string[] });
+const [bonus, setBonus] = useState(0); // 설문 가산점: 1번 +1, 2번 +3 → 총 4, 1점당 2% 감산
+
+
+useEffect(() => {
