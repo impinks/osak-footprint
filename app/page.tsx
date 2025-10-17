@@ -1,6 +1,15 @@
+"use client";
 import Image from "next/image";
+import { useState } from "react";
+
+// ✅ 허용 값과 타입 선언
+const modes = ['car', 'mixed', 'transit', 'active'] as const;
+type Mode = typeof modes[number];
 
 export default function Home() {
+  // ✅ 상태 타입을 Mode로 고정
+  const [mode, setMode] = useState<Mode>('car');
+
   return (
     <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
       <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
@@ -12,6 +21,23 @@ export default function Home() {
           height={38}
           priority
         />
+
+        {/* ✅ 모드 선택 UI (여기가 핵심) */}
+        <div className="flex flex-col gap-2 w-full max-w-xs">
+          <label htmlFor="mode" className="text-sm font-medium">이동 수단 모드</label>
+          <select
+            id="mode"
+            className="border rounded-md px-3 py-2 text-sm"
+            value={mode}
+            onChange={(e) => setMode(e.target.value as Mode)}  // ← string을 Mode로 좁혀서 set
+          >
+            {modes.map((m) => (
+              <option key={m} value={m}>{m}</option>
+            ))}
+          </select>
+          <p className="text-sm">현재 선택: <span className="font-semibold">{mode}</span></p>
+        </div>
+
         <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
           <li className="mb-2 tracking-[-.01em]">
             Get started by editing{" "}
