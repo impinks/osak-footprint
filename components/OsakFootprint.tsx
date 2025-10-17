@@ -108,8 +108,7 @@ export default function OsakDulegilSurveyAndFootprint() {
       flights,
       householdScale,
     );
-    // 설문 가산점: 1점당 2% 감산
-    const bonusMultiplier = 1 - bonus * 0.02;
+    const bonusMultiplier = 1 - bonus * 0.02; // 설문 가산점: 1점당 2% 감산
     const total = subtotal * practiceMultiplier * bonusMultiplier;
 
     const breakdown = [
@@ -231,7 +230,11 @@ export default function OsakDulegilSurveyAndFootprint() {
 
                 <div className="space-y-2">
                   <Label className="text-base font-bold" style={{ color: CATEGORY_COLORS["교통"] }}>○ 이동방식</Label>
-                  <RadioGroup value={transport} onValueChange={(v)=>{ setTransport(v); setCalculated(false); }} className="grid grid-cols-2 gap-2">
+                  <RadioGroup
+                    value={transport}
+                    onValueChange={(v) => { setTransport(v as keyof typeof FACTORS.transport); setCalculated(false); }}
+                    className="grid grid-cols-2 gap-2"
+                  >
                     <Label htmlFor="car" className="flex items-center gap-2 border p-3 rounded-xl cursor-pointer"><RadioGroupItem id="car" value="car" />자가용</Label>
                     <Label htmlFor="mixed" className="flex items-center gap-2 border p-3 rounded-xl cursor-pointer"><RadioGroupItem id="mixed" value="mixed" />혼합</Label>
                     <Label htmlFor="transit" className="flex items-center gap-2 border p-3 rounded-xl cursor-pointer"><RadioGroupItem id="transit" value="transit" />대중교통</Label>
@@ -241,7 +244,11 @@ export default function OsakDulegilSurveyAndFootprint() {
 
                 <div className="space-y-2">
                   <Label className="text-base font-bold" style={{ color: CATEGORY_COLORS["식품"] }}>○ 식습관</Label>
-                  <RadioGroup value={diet} onValueChange={(v)=>{ setDiet(v); setCalculated(false); }} className="grid grid-cols-3 gap-2">
+                  <RadioGroup
+                    value={diet}
+                    onValueChange={(v) => { setDiet(v as keyof typeof FACTORS.diet); setCalculated(false); }}
+                    className="grid grid-cols-3 gap-2"
+                  >
                     <Label htmlFor="meat" className="flex items-center gap-2 border p-3 rounded-xl cursor-pointer"><RadioGroupItem id="meat" value="meat" />육류</Label>
                     <Label htmlFor="mix" className="flex items-center gap-2 border p-3 rounded-xl cursor-pointer"><RadioGroupItem id="mix" value="mixed" />혼합</Label>
                     <Label htmlFor="veg" className="flex items-center gap-2 border p-3 rounded-xl cursor-pointer"><RadioGroupItem id="veg" value="veg" />채식</Label>
@@ -250,7 +257,11 @@ export default function OsakDulegilSurveyAndFootprint() {
 
                 <div className="space-y-2">
                   <Label className="text-base font-bold" style={{ color: CATEGORY_COLORS["주거/에너지"] }}>○ 에너지 절약 수준</Label>
-                  <RadioGroup value={energy} onValueChange={(v)=>{ setEnergy(v); setCalculated(false); }} className="grid grid-cols-3 gap-2">
+                  <RadioGroup
+                    value={energy}
+                    onValueChange={(v) => { setEnergy(v as keyof typeof FACTORS.energy); setCalculated(false); }}
+                    className="grid grid-cols-3 gap-2"
+                  >
                     <Label htmlFor="high" className="flex items-center gap-2 border p-3 rounded-xl cursor-pointer"><RadioGroupItem id="high" value="high" />많이</Label>
                     <Label htmlFor="mid" className="flex items-center gap-2 border p-3 rounded-xl cursor-pointer"><RadioGroupItem id="mid" value="mid" />보통</Label>
                     <Label htmlFor="low" className="flex items-center gap-2 border p-3 rounded-xl cursor-pointer"><RadioGroupItem id="low" value="low" />거의 안 함</Label>
@@ -259,7 +270,11 @@ export default function OsakDulegilSurveyAndFootprint() {
 
                 <div className="space-y-2">
                   <Label className="text-base font-bold" style={{ color: CATEGORY_COLORS["기타소비"] }}>○ 생활 소비 성향</Label>
-                  <RadioGroup value={lifestyle} onValueChange={(v)=>{ setLifestyle(v); setCalculated(false); }} className="grid grid-cols-3 gap-2">
+                  <RadioGroup
+                    value={lifestyle}
+                    onValueChange={(v) => { setLifestyle(v as keyof typeof FACTORS.lifestyle); setCalculated(false); }}
+                    className="grid grid-cols-3 gap-2"
+                  >
                     <Label htmlFor="frugal" className="flex items-center gap-2 border p-3 rounded-xl cursor-pointer"><RadioGroupItem id="frugal" value="frugal" />절약형</Label>
                     <Label htmlFor="midLifestyle" className="flex items-center gap-2 border p-3 rounded-xl cursor-pointer"><RadioGroupItem id="midLifestyle" value="mid" />보통</Label>
                     <Label htmlFor="spend" className="flex items-center gap-2 border p-3 rounded-xl cursor-pointer"><RadioGroupItem id="spend" value="spend" />소비형</Label>
@@ -268,7 +283,11 @@ export default function OsakDulegilSurveyAndFootprint() {
 
                 <div className="space-y-2">
                   <Label className="text-base font-bold" style={{ color: CATEGORY_COLORS["항공"] }}>○ 연간 항공 여행</Label>
-                  <RadioGroup value={flights} onValueChange={(v)=>{ setFlights(v); setCalculated(false); }} className="grid grid-cols-4 gap-2">
+                  <RadioGroup
+                    value={flights}
+                    onValueChange={(v) => { setFlights(v as keyof typeof FACTORS.flights); setCalculated(false); }}
+                    className="grid grid-cols-4 gap-2"
+                  >
                     <Label htmlFor="none" className="flex items-center gap-2 border p-3 rounded-xl cursor-pointer"><RadioGroupItem id="none" value="none" />0회</Label>
                     <Label htmlFor="few" className="flex items-center gap-2 border p-3 rounded-xl cursor-pointer"><RadioGroupItem id="few" value="few" />1회</Label>
                     <Label htmlFor="some" className="flex items-center gap-2 border p-3 rounded-xl cursor-pointer"><RadioGroupItem id="some" value="some" />2~4회</Label>
