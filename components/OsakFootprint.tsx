@@ -211,9 +211,8 @@ export default function OsakDulegilSurveyAndFootprint() {
           <motion.div initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} className="flex items-center gap-4">
             <div className="h-12 w-12 rounded-2xl bg-emerald-600/90 flex items-center justify-center text-white font-bold shadow-sm">O5</div>
             <div>
-              <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight text-emerald-900">오색둘레길 탄소발자국 계산기 <span className="text-slate-400 text-lg">(부스 데모)</span></h2>
-              <p className="text-slate-600 text-sm md:text-base">설문이 완료되었습니다. 아래에서 생활 배출량을 추정해보세요.</p>
-            </div>
+              <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight text-emerald-900">오색둘레길 탄소발자국 계산기 </h2>
+              <p className="text-slate-600 text-sm md:text-base">설문이 완료되었습니다. 아래에서 생활 배출량을 추정해보세요.</p>            </div>
           </motion.div>
 
           <div className="grid gap-6 md:grid-cols-2">
