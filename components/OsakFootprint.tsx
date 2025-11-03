@@ -213,7 +213,7 @@ export default function OsakDulegilSurveyAndFootprint() {
   <img src="/logo.png" alt="오산시지속가능발전협의회 로고" className="logo-image" />
 </div>
             <div>
-              <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight text-emerald-900">오산시지속가능발전협의회 탄소발자국 계산기 </h2>
+              <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight text-emerald-900">오산시지속가능발전협의회  탄소발자국 계산기 </h2>
               <p className="text-slate-600 text-sm md:text-base">설문이 완료되었습니다. 아래에서 생활 배출량을 추정해보세요.</p>            </div>
           </motion.div>
 
