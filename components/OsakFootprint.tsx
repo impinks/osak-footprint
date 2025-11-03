@@ -149,25 +149,25 @@ export default function OsakDulegilSurveyAndFootprint() {
       {step === 1 && (
         <Card className="max-w-3xl mx-auto border-emerald-100 rounded-2xl">
           <CardContent className="p-6 space-y-6">
-            <h1 className="text-2xl font-extrabold text-emerald-900">오색둘레길 홍보 설문</h1>
+            <h1 className="text-2xl font-extrabold text-emerald-900">탄소발자국 설문</h1>
             <div>
-              <Label className="font-bold text-lg text-emerald-800">1. 오색둘레길을 알고 있다</Label>
+              <Label className="font-bold text-lg text-emerald-800">1. 탄소발자국의 의미를 알고 있다</Label>
               <RadioGroup value={survey.know} onValueChange={(v) => setSurvey({ ...survey, know: v })} className="mt-2 flex gap-6">
-                <Label htmlFor="knowYes" className="flex items-center gap-2"><RadioGroupItem id="knowYes" value="있다" />있다</Label>
-                <Label htmlFor="knowNo" className="flex items-center gap-2"><RadioGroupItem id="knowNo" value="없다" />없다</Label>
+                <Label htmlFor="knowYes" className="flex items-center gap-2"><RadioGroupItem id="knowYes" value="전혀 모른다" />있다</Label>
+                <Label htmlFor="knowNo" className="flex items-center gap-2"><RadioGroupItem id="knowNo" value="알고 있다" />없다</Label>
               </RadioGroup>
             </div>
             <div>
-              <Label className="font-bold text-lg text-emerald-800">2. 오색둘레길을 직접 걸어본 적이 있다</Label>
+              <Label className="font-bold text-lg text-emerald-800">2. 기후변화가 내 생활에 직접적인 영향을 준다고 느낀다</Label>
               <RadioGroup value={survey.walked} onValueChange={(v) => setSurvey({ ...survey, walked: v })} className="mt-2 flex gap-6">
-                <Label htmlFor="walkedYes" className="flex items-center gap-2"><RadioGroupItem id="walkedYes" value="있다" />있다</Label>
-                <Label htmlFor="walkedNo" className="flex items-center gap-2"><RadioGroupItem id="walkedNo" value="없다" />없다</Label>
+                <Label htmlFor="walkedYes" className="flex items-center gap-2"><RadioGroupItem id="walkedYes" value="아니다" />있다</Label>
+                <Label htmlFor="walkedNo" className="flex items-center gap-2"><RadioGroupItem id="walkedNo" value="그렇다" />없다</Label>
               </RadioGroup>
             </div>
             <div>
-              <Label className="font-bold text-lg text-emerald-800">3. 오색둘레길을 걸은 이유는 무엇인가요? (복수 선택 가능)</Label>
+              <Label className="font-bold text-lg text-emerald-800">3. 기후변화로 인해 ‘직접적인 영향을 받는다고 느끼는’ 생활 영역을 모두 선택하세요 (복수 선택 가능)</Label>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mt-2">
-                {["건강/운동", "자연감상", "가족·친구와 여가", "행사참여", "기타"].map((r) => (
+                {["여름철 폭염·열대야", "전기요금·냉난방비 등 에너지 비용 증가", "식자재 가격 상승 또는 먹거리 불안", "미세먼지·대기오염 등 환경 악화", "기타"].map((r) => (
                   <label key={r} className="flex items-center gap-2 border p-3 rounded-xl cursor-pointer">
                     <Checkbox id={r} checked={survey.reasons.includes(r)} onCheckedChange={(c) => {
                       const isOn = c === true;
@@ -182,9 +182,9 @@ export default function OsakDulegilSurveyAndFootprint() {
               </div>
             </div>
             <div>
-              <Label className="font-bold text-lg text-emerald-800">4. 오색둘레길을 걸으며 가장 만족스러웠던 점은 무엇인가요?</Label>
+              <Label className="font-bold text-lg text-emerald-800">4. 앞으로 실천을 늘리고 싶은 행동을 모두 선택하세요</Label>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mt-2">
-                {["자연환경", "코스의 편안함", "안내표지", "접근성", "기타"].map((v) => (
+                {["가까운 거리는 도보·자전거 이용", "음식물쓰레기 줄이기", "전기 절약 및 대기전력 차단", "탄소(중립)포인트제 참여", "기타"].map((v) => (
                   <label key={v} className="flex items-center gap-2 border p-3 rounded-xl cursor-pointer">
                     <Checkbox id={v} checked={survey.satisfaction.includes(v)} onCheckedChange={(c) => {
                       const isOn = c === true;
